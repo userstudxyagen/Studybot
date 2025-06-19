@@ -1,17 +1,16 @@
 import os
 import requests
 from dotenv import load_dotenv
+
 load_dotenv()
-
 API_KEY = os.getenv("OPENROUTER_API_KEY")
-
 
 def ask_deepseek(prompt, model="deepseek-chat"):
     headers = {
         "Authorization": f"Bearer {API_KEY}",
-        "HTTP-Referer": "https://huggingface.co",
         "Content-Type": "application/json",
     }
+
     data = {
         "model": model,
         "messages": [
@@ -19,5 +18,18 @@ def ask_deepseek(prompt, model="deepseek-chat"):
             {"role": "user", "content": prompt}
         ]
     }
-    res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data)
-    return res.json()["choices"][0]["message"]["content"]
+
+    try:
+        res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data, timeout=20)
+        res.raise_for_status()
+        result = res.json()
+
+        if "choices" in result:
+            return result["choices"][0]["message"]["content"]
+        else:
+            return f"❌ Unerwartetes Antwortformat: {result}"
+
+    except requests.exceptions.RequestException as e:
+        return f"❌ Netzwerkfehler: {e}"
+    except Exception as e:
+        return f"❌ Allgemeiner Fehler: {e}"
