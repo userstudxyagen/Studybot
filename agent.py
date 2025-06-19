@@ -1,6 +1,8 @@
 import os
 import requests
+
 API_KEY = os.getenv("OPENROUTER_API_KEY")
+
 
 def ask_deepseek(prompt, model="deepseek-chat"):
     headers = {
