@@ -1,9 +1,10 @@
-import os
-import requests
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 API_KEY = os.getenv("OPENROUTER_API_KEY")
+if not API_KEY:
+    raise ValueError("❌ API-Key konnte nicht geladen werden")
 
 def ask_deepseek(prompt, model="deepseek-chat-v3-0324"):
     headers = {
