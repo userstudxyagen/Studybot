@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 
-def ask_deepseek(prompt, model="deepseek-chat"):
+def ask_deepseek(prompt, model="deepseek-chat-v3-0324"):
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json",
