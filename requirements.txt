@@ -1,7 +1,9 @@
 streamlit
-openai
 requests
-python-dotenv
-tqdm
-PyMuPDF
 beautifulsoup4
+PyMuPDF
+PyPDF2
+sympy
+openai
+tqdm
+python-dotenv
