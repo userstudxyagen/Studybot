@@ -7,7 +7,7 @@ API_TOKEN = os.getenv("HF_TOKEN")
 if not API_TOKEN:
     raise ValueError("API-Token konnte nicht geladen werden")
 
-MODEL_ID = "mistralai/Mixtral-8x7B-Instruct-v0.1"
+MODEL_ID = "HuggingFaceH4/zephyr-7b-beta"
 
 def ask_model(prompt):
     headers = {
