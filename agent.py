@@ -20,7 +20,7 @@ def ask_model(prompt):
         # Falls gewünscht, kannst du hier Parameter ergänzen, z.B. max_length
     }
 
-    url = f"https://api-inference.huggingface.co/models/{MODEL_ID}"
+    url = f"https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta/{MODEL_ID}"
 
     response = requests.post(url, headers=headers, json=payload, timeout=30)
     response.raise_for_status()
