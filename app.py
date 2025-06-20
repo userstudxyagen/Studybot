@@ -1,9 +1,9 @@
 import streamlit as st
 from webscraper import scrape_text_from_url  # type: ignore
-from pdf_handler import extract_text_from_pdf # type: ignore
-from coding_helper import get_coding_help # type: ignore
-from math_helper import solve_math_problem # type: ignore
-from agent import ask_model # type: ignore
+from pdf_handler import extract_text_from_pdf  # type: ignore
+from coding_helper import get_coding_help  # type: ignore
+from math_helper import solve_math_problem  # type: ignore
+from agent import ask_model  # type: ignore
 
 
 # Modernes Layout
