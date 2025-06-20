@@ -3,11 +3,11 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-API_KEY = os.getenv("HUGGINGFACE_API_TOKEN")
+API_KEY = os.getenv("HF_TOKEN")
 if not API_KEY:
     raise ValueError("❌ API-Key konnte nicht geladen werden")
 
-MODEL_ID = "google/flan-t5-large"  # or your chosen model
+MODEL_ID = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 
 def ask_deepseek(prompt):
     headers = {
@@ -17,8 +17,6 @@ def ask_deepseek(prompt):
 
     data = {
         "inputs": prompt,
-        # Optional: you can add parameters here, e.g. max_length, temperature, etc.
-        # "parameters": {"max_new_tokens": 150}
     }
 
     try:
@@ -27,7 +25,6 @@ def ask_deepseek(prompt):
         res.raise_for_status()
         result = res.json()
 
-        # Hugging Face models usually return a list of dicts with 'generated_text'
         if isinstance(result, list) and "generated_text" in result[0]:
             return result[0]["generated_text"]
         else:
