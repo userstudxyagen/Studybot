@@ -1,34 +1,35 @@
 import requests
-
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
-API_KEY = os.getenv("OPENROUTER_API_KEY")
+API_KEY = os.getenv("HUGGINGFACE_API_TOKEN")
 if not API_KEY:
     raise ValueError("❌ API-Key konnte nicht geladen werden")
 
-def ask_deepseek(prompt, model="deepseek-r1-0528"):
+MODEL_ID = "google/flan-t5-large"  # or your chosen model
+
+def ask_deepseek(prompt):
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json",
     }
 
     data = {
-        "model": model,
-        "messages": [
-            {"role": "system", "content": "Du bist ein KI-Studienassistent."},
-            {"role": "user", "content": prompt}
-        ]
+        "inputs": prompt,
+        # Optional: you can add parameters here, e.g. max_length, temperature, etc.
+        # "parameters": {"max_new_tokens": 150}
     }
 
     try:
-        res = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data, timeout=20)
+        url = f"https://api-inference.huggingface.co/models/{MODEL_ID}"
+        res = requests.post(url, headers=headers, json=data, timeout=20)
         res.raise_for_status()
         result = res.json()
 
-        if "choices" in result:
-            return result["choices"][0]["message"]["content"]
+        # Hugging Face models usually return a list of dicts with 'generated_text'
+        if isinstance(result, list) and "generated_text" in result[0]:
+            return result[0]["generated_text"]
         else:
             return f"❌ Unerwartetes Antwortformat: {result}"
 
