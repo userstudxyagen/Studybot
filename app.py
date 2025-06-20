@@ -45,7 +45,7 @@ if mode == "Webseite":
     question = st.text_input("❓ Frage zur Website:")
     if st.button("Frage stellen"):
         content = scrape_text_from_url(url)
-        answer = ask_deepseek(f"{content}\n\nFrage: {question}")
+        answer = ask_model(f"{content}\n\nFrage: {question}")
         st.session_state.chat_history.append(("🌐 Du", question))
         st.session_state.chat_history.append(("🤖 Bot", answer))
         st.write(answer)
@@ -57,7 +57,7 @@ elif mode == "PDF":
     question = st.text_input("❓ Frage zum PDF:")
     if st.button("Frage stellen") and file:
         text = extract_text_from_pdf(file)
-        answer = ask_deepseek(f"{text}\n\nFrage: {question}")
+        answer = ask_model(f"{text}\n\nFrage: {question}")
         st.session_state.chat_history.append(("📄 Du", question))
         st.session_state.chat_history.append(("🤖 Bot", answer))
         st.write(answer)
