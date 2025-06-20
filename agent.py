@@ -8,7 +8,7 @@ API_KEY = os.getenv("OPENROUTER_API_KEY")
 if not API_KEY:
     raise ValueError("❌ API-Key konnte nicht geladen werden")
 
-def ask_deepseek(prompt, model="deepseek-chat-v3-0324"):
+def ask_deepseek(prompt, model="deepseek-r1-0528"):
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json",
